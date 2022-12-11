@@ -510,7 +510,7 @@ if ($_SESSION['user_id'] == null) {
                             <th class="pe-4">Action</th>
                           </tr>
                         </thead>
-                        <tbody v-for="user, index in users" v-if="index  >= usersTablePagination.start && index < usersTablePagination.end">
+                        <tbody v-for="user, index in users" v-if="index  >= paginationData.start && index < paginationData.end">
                           <tr v-if="user.id != <?= $_SESSION['user_id'] ?>">
                             <td class="text-capitalize"><img :src="user.profile" alt="avatar" width="40" class="me-2 rounded-circle"> {{ user.full_name }}</td>
                             <td>{{ user.email }}</td>
@@ -531,26 +531,26 @@ if ($_SESSION['user_id'] == null) {
                     </div>
                   </div>
                 </div>
-
+                <!-- pagination -->
                 <nav class="row">
-                  <p class="col-6 pt-1">Showing {{ usersTablePagination.start + 1 }} -  {{ usersTablePagination.end }} results</p>
+                  <p class="col-6 pt-1">Showing {{ paginationData.start + 1 }} - {{ paginationData.end }} results</p>
                   <ul class="col-6 pagination justify-content-end">
-                    <li class="page-item">
-                      <a class="page-link">Previous</a>
+                    <li v-bind:class="paginationData.limit == 4 ? 'disabled' : null" class="page-item">
+                      <a @click="previousPage()" class="page-link" href="#!">Previous</a>
                     </li>
-                    <li v-for="index in Math.round(totalUsers / 5)" class="page-item">
-                      <a @click="pagination(index)" class="page-link" href="#!">{{ index  }}</a>
+                    <li v-for="index in Math.round(totalUsers / 5)" v-bind:class="paginationData.page == index ? 'active' : null" class="page-item">
+                      <a @click="pagination(index)" v-if="index >= paginationData.limit-3 && index <= paginationData.limit" class="page-link" href="#!">{{ index  }}</a>
                     </li>
-                    <li class="page-item">
-                      <a class="page-link" href="#">Next</a>
+                    <li v-bind:class="Math.round(totalUsers/5) == paginationData.limit ? 'disabled' : null" class="page-item">
+                      <a @click="nextPage()" class="page-link" href="#!">Next</a>
                     </li>
                   </ul>
-                </nav>
-
-
+                </nav><!-- end of pagination -->
               </div>
             </div>
-          <?php } ?>
+          <?php }
+          include 'toasts/manage_users.php'
+          ?>
         </div>
       </div>
     </div>

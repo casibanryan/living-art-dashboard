@@ -14,7 +14,7 @@ if (isset($_SESSION['remember_me']) && $_SESSION['remember_me']) {
         <div class="row justify-content-center h-100 align-items-center">
             <div class="col-xl-5 col-md-6">
                 <div class="mini-logo text-center my-4"><a href="index-2.html"><img src="images/logo.png" alt=""></a>
-                    <h4 class="card-title mt-5">Sign in to Living Art</h4>
+                    <h4 class="card-title mt-5">Sign in to ENFTX</h4>
                 </div>
                 <div class="auth-form card">
                     <div class="card-body">

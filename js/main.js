@@ -9,7 +9,7 @@ var app = new Vue({
         totalUsers: 0,
         totalLockedUsers: 0,
         editId: 0,
-        usersTablePagination: { start: 0, end: 5, page: 1 },
+        paginationData: { start: 0, end: 5, page: 1, limit: 4 },
     },
     created() {
         this.fetchUsers();
@@ -24,19 +24,29 @@ var app = new Vue({
             let resultsPerPage = 5;
             let start = parseInt((selectedPage - 1) * resultsPerPage);
             let end = parseInt(selectedPage * resultsPerPage);
-            this.usersTablePagination.start = start;
-            this.usersTablePagination.end = end;
-            this.usersTablePagination.page =
-                (selectedPage - 1) * resultsPerPage + 1;
+            this.paginationData.start = start;
+            this.paginationData.end = end;
+            this.paginationData.page = selectedPage;
         },
 
+        nextPage() {
+            this.paginationData.limit += 1;
+        },
+
+        previousPage() {
+            this.paginationData.limit -= 1;
+        },
         updateUser(e) {
             e.preventDefault();
             let formData = new FormData(e.currentTarget);
             formData.append('method', 'update_user');
             axios.post('server/api.php', formData).then((respond) => {
                 if (respond.data == 1) {
-                    alert('User updated successfully!');
+                    const myToastEl = $('#update-user');
+                    myToastEl.show();
+                    setTimeout(() => {
+                        myToastEl.hide();
+                    }, 10000);
                     this.fetchUsers();
                     this.fetchActivities();
                 } else {
@@ -207,16 +217,19 @@ var app = new Vue({
 
         getEstimateTime(date) {
             const d = new Date(date);
-            let hours = d.getHours();
-            let minutes = d.getMinutes();
-            let days = d.getDay();
             let today = new Date();
-            if (today.getDay() > days) {
-                return `${today.getDay() - days} day ago`;
+            let days = d.getDate();
+            let hours = today.getHours() - d.getHours();
+            let minutes = today.getMinutes() - d.getMinutes();
+            let seconds = today.getSeconds() - d.getSeconds();
+            if (today.getDate() > days) {
+                return `${today.getDate() - days} day ago`;
             } else if (hours >= 1) {
-                return `${today.getHours() - hours} hour ago`;
+                return `${hours} hour ago`;
+            } else if (minutes >= 1) {
+                return `${minutes} min ago`;
             } else {
-                return `${today.getMinutes() - minutes} min ago`;
+                return `${seconds} sec ago`;
             }
         },
 
@@ -251,6 +264,11 @@ var app = new Vue({
                     if (respond.data == 1) {
                         self.fetchUsers();
                         self.fetchActivities();
+                        const myToastEl = $('#update-user-status');
+                        myToastEl.show();
+                        setTimeout(() => {
+                            myToastEl.hide();
+                        }, 10000);
                     } else {
                         alert('Something went wrong, Please try again...');
                     }
@@ -266,7 +284,11 @@ var app = new Vue({
                 axios.post('server/api.php', formData).then((respond) => {
                     console.log(respond);
                     if (respond.data == 1) {
-                        alert('User deleted successfully');
+                        const myToastEl = $('#delete-user');
+                        myToastEl.show();
+                        setTimeout(() => {
+                            myToastEl.hide();
+                        }, 10000);
                         self.fetchUsers();
                         self.fetchActivities();
                     } else {
