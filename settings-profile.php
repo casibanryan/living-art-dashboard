@@ -20,13 +20,7 @@
           </div>
         </div>
       </div>
-      <ul class="settings-menu">
-        <li><a href="settings-profile.html">Profile</a></li>
-        <li class=""><a href="javascript:void">Application</a></li>
-        <li class=""><a href="javascript:void">Security</a></li>
-        <li class=""><a href="javascript:void">Activity</a></li>
-        <li class=""><a href="javascript:void">Payment Method</a></li>
-      </ul>
+
       <div class="row">
         <div class="col-xxl-6 col-xl-6 col-lg-6">
           <div class="card">

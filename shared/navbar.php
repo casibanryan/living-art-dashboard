@@ -71,7 +71,7 @@
               <div data-bs-toggle="dropdown" aria-haspopup="true" class="" aria-expanded="false">
                 <div class="user icon-menu active">
                   <span>
-                      <img :src="myInfo.profile" alt="profile">
+                    <img :src="myInfo.profile" alt="profile">
                   </span>
                 </div>
               </div>
@@ -87,9 +87,7 @@
                     </div>
                   </div>
                 </div>
-                <a class="dropdown-item" href="profile.php">
-                  <span><i class="ri-user-line"></i></span>Profile
-                </a>
+
                 <a class="dropdown-item" href="settings-profile.php">
                   <span><i class="ri-settings-3-line"></i></span>Settings
                 </a>

@@ -102,7 +102,11 @@ var app = new Vue({
                     window.location.href =
                         'http://localhost/nft-dashboard/signin.php';
                 } else if (respond.data == 2) {
-                    alert('User added successfully!');
+                    const myToastEl = $('#add-user');
+                    myToastEl.show();
+                    setTimeout(() => {
+                        myToastEl.hide();
+                    }, 10000);
                     self.fetchUsers();
                 } else if (respond.data == 3) {
                     alert('Email is already taken!');

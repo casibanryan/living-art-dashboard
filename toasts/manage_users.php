@@ -35,3 +35,15 @@
          </div>
      </div>
  </div>
+
+ <!-- add user  -->
+ <div class="toast-container position-fixed bottom-0 end-0 p-3">
+     <div id="add-user" class="toast bg-white">
+         <div class="toast-body">
+             <strong class="me-auto text-dark text-capitalize">
+                 <i class="ri-information-line text-info float-start me-2"></i>
+                 Successfully added user
+             </strong>
+         </div>
+     </div>
+ </div>
