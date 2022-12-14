@@ -1,4 +1,8 @@
-<?= include 'shared/head.php'; ?>
+<?php include 'shared/head.php';
+if (!isset($_SESSION['user_id'])) {
+  header('location: signin.php');
+}
+?>
 
 <div id="main-wrapper" class="app">
   <?=
